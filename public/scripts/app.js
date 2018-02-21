@@ -2,24 +2,13 @@
 
 console.log('App.js is running!');
 
-/* Challenge: create app object title/subtitle
- * use title/subtitle in the template
- * render template
- */
-
-/* Challenge: only render the subtitle (and p tag) if subtitle exists &&
- * render new p tag - if options.length > 0
- *  if true: 'here are your options'
- *  if false: 'no options'
- */
-
 var app = {
   title: 'Title',
   subtitle: 'Some subtitles',
   options: ['One', 'Two']
+};
 
-  // JSX - JavaScript XML
-};var template = React.createElement(
+var template = React.createElement(
   'div',
   null,
   React.createElement(
@@ -53,56 +42,63 @@ var app = {
   )
 );
 
-var user = {
-  name: 'j:caluapps',
-  do: 'App Development',
-  for: 5,
-  where: 'Vienna'
+var count = 0;
+var addOne = function addOne() {
+  console.log('addOne');
+  count++;
+  console.log('count:', count);
+  renderCounterApp();
 };
 
-function getLocation(location) {
-  if (location) {
-    return React.createElement(
-      'p',
-      null,
-      'Location: ',
-      location
-    );
-  }
-}
+var minusOne = function minusOne() {
+  console.log('minusOne');
+  count--;
+  console.log('count:', count);
+  renderCounterApp();
+};
 
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    user.name ? user.name : 'Anonymous'
-  ),
-  React.createElement(
-    'p',
-    null,
-    'Do: ',
-    user.do
-  ),
-  user.for && user.for >= 2 && React.createElement(
-    'p',
-    null,
-    'For: ',
-    user.for,
-    ' years'
-  ),
-  getLocation(user.where)
-);
+var reset = function reset() {
+  console.log('reset');
+  count = 0;
+  console.log('count:', count);
+  renderCounterApp();
+};
 
-/* Challenge: Create a templateTwo var JSX expression
- *  div
- *    h1 -> j:caluapps
- *    p -> Age: 32
- *    p -> Location: Vienna
- * Render templateTwo instead of template
+/* Challenge: Make buttons
+ * Button '-1' - setup minusOne function and register - log 'minusOne'
+ * Button 'reset' - sestup reset function - log 'reset'
 */
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(template, appRoot);
+var renderCounterApp = function renderCounterApp() {
+  var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      'Count: ',
+      count
+    ),
+    React.createElement(
+      'button',
+      { onClick: addOne },
+      '+1'
+    ),
+    React.createElement(
+      'button',
+      { onClick: minusOne },
+      '-1'
+    ),
+    React.createElement(
+      'button',
+      { onClick: reset },
+      'reset'
+    )
+  );
+
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();

@@ -1,23 +1,11 @@
 console.log('App.js is running!');
 
-/* Challenge: create app object title/subtitle
- * use title/subtitle in the template
- * render template
- */
-
-/* Challenge: only render the subtitle (and p tag) if subtitle exists &&
- * render new p tag - if options.length > 0
- *  if true: 'here are your options'
- *  if false: 'no options'
- */
-
 const app = {
   title: 'Title',
   subtitle: 'Some subtitles',
   options: ['One', 'Two']
 }
 
-// JSX - JavaScript XML
 const template = (
   <div>
     <h1>{app.title}</h1>
@@ -30,36 +18,46 @@ const template = (
   </div>
 );
 
-const user = {
-  name: 'j:caluapps',
-  do: 'App Development',
-  for: 5,
-  where: 'Vienna'
-}
+let count = 0;
+const addOne = () => {
+  console.log('addOne');
+  count++;
+  console.log('count:', count);
+  renderCounterApp();
+};
 
-function getLocation(location) {
-  if (location) {
-    return <p>Location: {location}</p>;
-  }
-}
+const minusOne = () => {
+  console.log('minusOne');
+  count--;
+  console.log('count:', count);
+  renderCounterApp();
+};
 
-const templateTwo = (
-  <div>
-    <h1>{user.name ? user.name : 'Anonymous'}</h1>
-    <p>Do: {user.do}</p>
-    {(user.for && user.for >= 2) && <p>For: {user.for} years</p>}
-    {getLocation(user.where)}
-  </div>
-);
+const reset = () => {
+  console.log('reset');
+  count = 0;
+  console.log('count:', count);
+  renderCounterApp();
+};
 
-/* Challenge: Create a templateTwo var JSX expression
- *  div
- *    h1 -> j:caluapps
- *    p -> Age: 32
- *    p -> Location: Vienna
- * Render templateTwo instead of template
+/* Challenge: Make buttons
+ * Button '-1' - setup minusOne function and register - log 'minusOne'
+ * Button 'reset' - sestup reset function - log 'reset'
 */
 
 const appRoot = document.getElementById('app');
 
-ReactDOM.render(template, appRoot);
+const renderCounterApp = () => {
+  const templateTwo = (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={addOne} >+1</button>
+      <button onClick={minusOne} >-1</button>
+      <button onClick={reset}>reset</button>
+    </div>
+  );
+
+  ReactDOM.render(templateTwo, appRoot);
+};
+
+renderCounterApp();
