@@ -1,0 +1,12 @@
+{
+  "name": "react-indecision-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/caluapps/react-indecision-app.git",
+  "author": "caluapps <office@calu-apps.at>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1"
+  }
+}
