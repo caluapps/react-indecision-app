@@ -18,7 +18,7 @@ var onFormSubmit = function onFormSubmit(e) {
   if (option) {
     app.options.push(option);
     e.target.elements.option.value = '';
-    console.log(app.options);
+    // console.log(app.options);
 
     renderToRefreshData();
   }
@@ -27,7 +27,14 @@ var onFormSubmit = function onFormSubmit(e) {
 var onRemoveAll = function onRemoveAll() {
   app.options = [];
   renderToRefreshData();
-  console.log(app.options);
+  // console.log(app.options);
+};
+
+var onMakeDecision = function onMakeDecision() {
+  var randomNum = Math.floor(Math.random() * app.options.length);
+  var option = app.options[randomNum];
+  alert(option);
+  console.log(randomNum);
 };
 
 var appRoot = document.getElementById('app');
@@ -54,9 +61,9 @@ var renderToRefreshData = function renderToRefreshData() {
       app.options.length > 0 ? 'Here are your options!' : 'No options'
     ),
     React.createElement(
-      'p',
-      null,
-      app.options.length
+      'button',
+      { disabled: app.options.length <= 0, onClick: onMakeDecision },
+      'What should I do?'
     ),
     React.createElement(
       'button',
@@ -66,12 +73,6 @@ var renderToRefreshData = function renderToRefreshData() {
     React.createElement(
       'ol',
       null,
-      /* So oder ..
-      app.options.map((option) => {
-        return <li key={option} >{option}</li>;
-      }) */
-
-      /* soo .. */
       app.options.map(function (option) {
         return React.createElement(
           'li',

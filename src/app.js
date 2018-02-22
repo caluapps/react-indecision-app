@@ -16,7 +16,7 @@ const onFormSubmit = (e) => {
   if (option) {
     app.options.push(option);
     e.target.elements.option.value = '';
-    console.log(app.options);
+    // console.log(app.options);
 
     renderToRefreshData();
   }
@@ -25,7 +25,14 @@ const onFormSubmit = (e) => {
 const onRemoveAll = () => {
   app.options = [];
   renderToRefreshData();
-  console.log(app.options);
+  // console.log(app.options);
+};
+
+const onMakeDecision = () => {
+  const randomNum = Math.floor(Math.random() * app.options.length);
+  const option = app.options[randomNum];
+  alert(option);
+  console.log(randomNum);
 };
 
 const appRoot = document.getElementById('app');
@@ -38,20 +45,10 @@ const renderToRefreshData = () => {
       <h1>{app.title}</h1>
       {app.subtitle && <p>{app.subtitle}</p>}
       <p>{app.options.length > 0 ? 'Here are your options!' : 'No options'}</p>
-      <p>{app.options.length}</p>
+      <button disabled={app.options.length<=0} onClick={onMakeDecision}>What should I do?</button>
       <button onClick={onRemoveAll}>remove all</button>
-      { /*
-        numbers.map((number) => {
-          return <p key={number} >Number: {number}</p>;
-        }) */
-      }
       <ol>
-        { /* So oder ..
-          app.options.map((option) => {
-            return <li key={option} >{option}</li>;
-          }) */
-          
-          /* soo .. */
+        {
           app.options.map((option) => <li key={option} >{option}</li>)
         }
       </ol>
