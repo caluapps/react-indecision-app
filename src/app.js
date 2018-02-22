@@ -3,61 +3,66 @@ console.log('App.js is running!');
 const app = {
   title: 'Title',
   subtitle: 'Some subtitles',
-  options: ['One', 'Two']
-}
-
-const template = (
-  <div>
-    <h1>{app.title}</h1>
-    {app.subtitle && <p>{app.subtitle}</p>}
-    <p>{app.options.length > 0 ? 'Here are your options!' : 'No options'}</p>
-    <ol>
-      <li>Item one</li>
-      <li>Item two</li>
-    </ol>
-  </div>
-);
-
-let count = 0;
-const addOne = () => {
-  console.log('addOne');
-  count++;
-  console.log('count:', count);
-  renderCounterApp();
+  options: []
 };
 
-const minusOne = () => {
-  console.log('minusOne');
-  count--;
-  console.log('count:', count);
-  renderCounterApp();
+const onFormSubmit = (e) => {
+  /* When called is going to stop full page refresh */
+  e.preventDefault();
+
+  // console.log('form submitted');
+  const option = e.target.elements.option.value;
+
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = '';
+    console.log(app.options);
+
+    renderToRefreshData();
+  }
 };
 
-const reset = () => {
-  console.log('reset');
-  count = 0;
-  console.log('count:', count);
-  renderCounterApp();
+const onRemoveAll = () => {
+  app.options = [];
+  renderToRefreshData();
+  console.log(app.options);
 };
-
-/* Challenge: Make buttons
- * Button '-1' - setup minusOne function and register - log 'minusOne'
- * Button 'reset' - sestup reset function - log 'reset'
-*/
 
 const appRoot = document.getElementById('app');
 
-const renderCounterApp = () => {
-  const templateTwo = (
+const numbers = [55, 101, 1000];
+
+const renderToRefreshData = () => {
+  const template = (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={addOne} >+1</button>
-      <button onClick={minusOne} >-1</button>
-      <button onClick={reset}>reset</button>
+      <h1>{app.title}</h1>
+      {app.subtitle && <p>{app.subtitle}</p>}
+      <p>{app.options.length > 0 ? 'Here are your options!' : 'No options'}</p>
+      <p>{app.options.length}</p>
+      <button onClick={onRemoveAll}>remove all</button>
+      { /*
+        numbers.map((number) => {
+          return <p key={number} >Number: {number}</p>;
+        }) */
+      }
+      <ol>
+        { /* So oder ..
+          app.options.map((option) => {
+            return <li key={option} >{option}</li>;
+          }) */
+          
+          /* soo .. */
+          app.options.map((option) => <li key={option} >{option}</li>)
+        }
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type='text' name='option' />
+        <button>Add Option</button>
+      </form>
     </div>
   );
 
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+renderToRefreshData();
