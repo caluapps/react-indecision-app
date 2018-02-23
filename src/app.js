@@ -1,65 +1,100 @@
-console.log('App.js is running!');
+class IndecisionApp extends React.Component {
+  render() {
+    const title = 'Indecision';
+    const subtitle = 'Put your life in the hands of a computer';
+    const options = ['Thing one', 'Thing two', 'Thing four', 'Thing three'];
 
-const app = {
-  title: 'Title',
-  subtitle: 'Some subtitles',
-  options: []
-};
-
-const onFormSubmit = (e) => {
-  /* When called is going to stop full page refresh */
-  e.preventDefault();
-
-  // console.log('form submitted');
-  const option = e.target.elements.option.value;
-
-  if (option) {
-    app.options.push(option);
-    e.target.elements.option.value = '';
-    // console.log(app.options);
-
-    renderToRefreshData();
+      return(
+        <div>
+          <Header
+            title={title}
+            subtitle={subtitle} />
+          <Action />
+          <Options
+            options={options} />
+          <AddOption />
+        </div>
+      );
   }
-};
+}
 
-const onRemoveAll = () => {
-  app.options = [];
-  renderToRefreshData();
-  // console.log(app.options);
-};
+class Header extends React.Component {
+  render() {
+    // console.log(this.props);
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
+        <p>This is from Header</p>
+      </div>
+    );
+  }
+}
 
-const onMakeDecision = () => {
-  const randomNum = Math.floor(Math.random() * app.options.length);
-  const option = app.options[randomNum];
-  alert(option);
-  console.log(randomNum);
-};
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>What should I do?</button>
+      </div>
+    );
+  }
+}
 
-const appRoot = document.getElementById('app');
+/*  Options -> Options component here
+ *    list of available options
+ */
 
-const numbers = [55, 101, 1000];
+/*  Option -> Option component here
+ */
 
-const renderToRefreshData = () => {
-  const template = (
-    <div>
-      <h1>{app.title}</h1>
-      {app.subtitle && <p>{app.subtitle}</p>}
-      <p>{app.options.length > 0 ? 'Here are your options!' : 'No options'}</p>
-      <button disabled={app.options.length<=0} onClick={onMakeDecision}>What should I do?</button>
-      <button onClick={onRemoveAll}>remove all</button>
-      <ol>
+/*  Setup options prop for Options component
+ *  Render the length of the array
+ */
+
+/* Render new p tag for each option (set text, set key)
+ */
+
+/* Options Component */
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
         {
-          app.options.map((option) => <li key={option} >{option}</li>)
+          // this.props.options.length
+          // this.props.options.map((option) => <li key={option} >{option}</li>)
+          this.props.options.map((option) => <Option key={option} optionText={option}/>)
         }
-      </ol>
-      <form onSubmit={onFormSubmit}>
-        <input type='text' name='option' />
-        <button>Add Option</button>
-      </form>
-    </div>
-  );
+      </div>
+    );
+  }
+}
 
-  ReactDOM.render(template, appRoot);
-};
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+          {this.props.optionText}
+      </div>
+    );
+  }
+}
 
-renderToRefreshData();
+/*  AddOption -> AddOption component here
+ *    form allows user to type some text and sumbit it with a button
+ */
+
+class AddOption extends React.Component {
+  render() {
+    return (
+      <div>
+        <input type='text' />
+        <button>
+          Add Option
+        </button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
