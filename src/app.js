@@ -72,6 +72,7 @@ class IndecisionApp extends React.Component {
   }
 }
 
+/* umgewandelt von einer Component zu einer Stateless Components
 class Header extends React.Component {
   render() {
     // console.log(this.props);
@@ -83,8 +84,19 @@ class Header extends React.Component {
       </div>
     );
   }
-}
+} */
 
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+      <p>This is from Header</p>
+    </div>
+  );
+};
+
+/* umgewandelt von einer Component zu einer Stateless Components
 class Action extends React.Component {
   render() {
     return (
@@ -98,7 +110,20 @@ class Action extends React.Component {
       </div>
     );
   }
-}
+} */
+
+const Action = (props) => {
+  return (
+    <div>
+      <button
+        onClick={props.handlePick}
+        disabled={!props.hasOptions}
+      >
+        What should I do?
+      </button>
+    </div>
+  );
+};
 
 /*  Options -> Options component here
  *    list of available options
@@ -119,7 +144,8 @@ class Action extends React.Component {
  * setup onClick to fire the method
  */
 
-/* Options Component */
+/*  Options Component
+    umgewandelt von einer Component zu einer Stateless Components
 class Options extends React.Component {
   render() {
     return (
@@ -131,8 +157,20 @@ class Options extends React.Component {
       </div>
     );
   }
-}
+} */
 
+const Options = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions} >Remove All</button>
+      {
+        props.options.map((option) => <Option key={option} optionText={option}/>)
+      }
+    </div>
+  );
+};
+
+/* umgewandelt von einer Component zu einer Stateless Components
 class Option extends React.Component {
   render() {
     return (
@@ -141,7 +179,15 @@ class Option extends React.Component {
       </div>
     );
   }
-}
+} */
+
+const Option = (props) => {
+  return (
+    <div>
+        {props.optionText}
+    </div>
+  );
+};
 
 /*  AddOption -> AddOption component here
  *    form allows user to type some text and sumbit it with a button
@@ -186,5 +232,15 @@ class AddOption extends React.Component {
     );
   }
 }
+
+// const User = (props) => {
+//   return(
+//     <div>
+//       <p>Name: {props.name}</p>
+//       <p>Age: {props.age}</p>
+//     </div>
+//   );
+// };
+// <User name='jay' age={33}/>
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
