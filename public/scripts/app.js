@@ -22,12 +22,40 @@ var Counter = function (_React$Component) {
     _this.handleMinusOne = _this.handleMinusOne.bind(_this);
     _this.handleReset = _this.handleReset.bind(_this);
     _this.state = {
-      count: props.count
+      // count: props.count
+      count: 0
     };
     return _this;
   }
 
   _createClass(Counter, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log('componentDidMount');
+      var stringCount = localStorage.getItem('count');
+      var count = parseInt(stringCount, 10);
+
+      if (!isNaN(count)) {
+        this.setState(function () {
+          return { count: count };
+        });
+      }
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      console.log('componentDidUpdate');
+      if (prevState.count !== this.state.count) {
+        console.log('saving data', this.state.count);
+        localStorage.setItem('count', this.state.count);
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      console.log('componentWillUnmount');
+    }
+  }, {
     key: 'handleAddOne',
     value: function handleAddOne() {
       console.log('Add one');
