@@ -5,6 +5,11 @@ import Options from './Options.js';
 import Header from './Header.js';
 import Action from './Action.js';
 
+// pull the state out of constructor
+// convert all 4 event handlers to class properties (arrow functions)
+// delete the constructor completely
+// start with class properties and end with method
+
 export default class IndecisionApp extends React.Component {
   constructor(props) {
     super(props);
