@@ -4,6 +4,7 @@ import Option from './Option.js';
 const Options = (props) => (
   <div>
     <button
+      className='button button--link'
       onClick={props.handleDeleteOptions}
     >
       Remove All
